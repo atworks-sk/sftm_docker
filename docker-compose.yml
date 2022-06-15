@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  database:
+    container_name: 'postgre_database'
+    build: ./sftm_db
+    # image: 'postgres:14'
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: "sftm_admin"
+      POSTGRES_PASSWORD: "sftm_admin"
+      POSTGRES_DB: "sftm"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+  tomcat:
+    # image: tomcat:8 
+    container_name: 'sftm_was'
+    build: ./sftm_was
+    # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
+    # volumes:
+    #   - ./backend1:/usr/src/app
+    ports:
+      - "8080:8080"
+    # restart: always  
+    # 환경변수 설정
+    # environment: 
+    #   - DBHOST=database
+
+
+    # docker-compose up -d
